@@ -1,0 +1,127 @@
+{% load static %}
+{% include 'partials/head.html' %}
+<link rel="stylesheet" href="{% static 'background/background.css' %}">
+
+
+<body>
+    {% include 'partials/header.html'%}
+    <div class='search_bar_block'>
+        <input placeholder='Search for students' type="text" class='search_bar'>
+    </div>
+
+    <div class='tags_bar'>
+        <div class="tag selected " data-class='all'>all</div>
+        {% for class in classes %}
+        <div class="tag" data-class="{{ class.name }}">{{class.name}}</div>
+        {% endfor %}
+    </div>
+
+
+    {% for turma, students in students_by_class.items %}
+    <div class="class_section"  data-class="{{ turma }}">
+        <h2 class="class_name">{{ turma }}</h2>
+   <div class="class_students">
+   {% for student in students %}
+<div class="card">
+    <img class='profile_image'src="{% static 'global/StockCake-FocusedClassroomMoment_1721245966.jpg' %}" alt="">
+ 
+    <div class="name">{{student.name}} {{student.last_name}}</div>
+            <div class="year">YEAR: {{student.turma}} </div>
+            <div class="matricula">ID: {{student.matricula}}</div>
+
+            <button class="profile">Perfil</button>
+</div>
+
+{% endfor %}
+</div>
+
+</div>
+{% endfor %}
+
+
+    <div class="add">
+        <button class='add_button' id='mainButton'>+</button>
+        <div class="hidden_buttons">
+            <a class='add_button_link'href="{% url 'Admin:new_student' %}">
+            <button class='secondary_button'>Add Student</button>
+        </a>
+        <a class='add_button_link' href="{% url 'Admin:new_class' %}">
+            <button class='secondary_button'>Add Class</button>
+        </a>
+        <a class='add_button_link' href="{% url 'Admin:new_teacher' %}">
+            <button class='secondary_button'>Add Teacher</button>
+        </a>
+        </div>
+    </div>
+
+   <div class="new_student"></div>
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+      
+        $('.tag').click(function() {
+            $('.tag').removeClass('selected');
+            $(this).addClass('selected');
+
+            var selectedClass = $(this).data('class');
+            
+            if (selectedClass === 'all') {
+                $('.class_section').show();
+            } else {
+                $('.class_section').each(function() {
+                    var sectionClass = $(this).data('class');
+                    if (sectionClass === selectedClass) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
+        });
+
+        });
+
+        $('.add_button').click(function() {
+            if ($('.add_button').text() == '+') {
+                $(this).addClass('rotate')
+                $(this).removeClass('rerotate')
+                $(this).text(' - ')
+
+                $('.secondary_button').css('animation-name','slideIn');
+                $('.secondary_button').css('display','block');
+                $('.secondary_button').addClass('movement');
+        } else {
+            $(this).removeClass('rotate')
+            $(this).addClass('rerotate')
+            $(this).text('+')
+
+            $('.secondary_button').removeClass('movement');
+            $('.secondary_button').css('animation-name','slideOut');
+            $('.secondary_button').css('display', 'none')
+        }
+
+        });
+
+
+   
+
+
+
+
+</script>
+</html>

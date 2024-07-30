@@ -1,0 +1,54 @@
+{% include 'partials/head.html' %}
+<body>
+
+
+    
+    {% if loginpage %}
+    <form action="{% url 'Admin:loginpage' %}" method='POST'>
+       
+        {% csrf_token %}
+        <div class="content">
+        <div class='login_text '>Welcome!</div>
+        <div class='login_text'>Login to your accont</div>
+    {% else %}
+    
+        <form action="{% url 'Admin:create_accont' %}" method='POST'>
+        {% csrf_token %}
+        <div class="content">
+            <div class='login_text '>Create account</div>
+
+    {% endif%}
+    <input type="username" name="username" id="username" class='username input' placeholder='id/user'>
+    <div class="error_message">{{form.username.errors}}</div>
+        <input type="password" name="password" id="passwoord" class='password input' placeholder='password'>
+        <div class="error_message">{{form.password.errors}}</div>
+        {% if loginpage %}
+  
+        <a href="{% url 'Admin:create_accont'%}" class='link_create_cont contrast'>
+        <p class='p_login_text'> if you want to create a new manager</p>
+        <p class='p_login_text'> click here!</p>
+        </a>
+        <button type="submit"  class='login_submit_button'>Sign in </button>
+    
+        {% else%}
+        <div class='names'>
+            <input type="text" name="first_name" id="first_name" class='first_name input' placeholder='firstname'>
+            <input type="text" name="last_name" id="last_name" class='last_name input' placeholder='last name'>
+        </div>
+        <div class="names">
+            <div class="error_message">{{form.first_name.errors}}</div>
+            <div class="error_message">{{form.last_name.errors}}</div>
+        </div>
+    <input type="text" name="email" id="email" class='email input' placeholder='email'>
+    <div class="error_message">{{form.email.errors}}</div>
+    <input type="text" name="school" id="school" class='input' placeholder='School'>
+    <div class="error_message">{{form.school.errors}}</div>
+
+        <button type="submit"  class='login_submit_button'>Register</button>
+ 
+        {% endif %}
+    </form>
+  
+    </div>
+</body>
+</html>

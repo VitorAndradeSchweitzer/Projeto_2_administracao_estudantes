@@ -1,0 +1,88 @@
+{% load static %}
+{% include 'partials/head.html' %}
+<link rel="stylesheet" href="{% static 'background/background.css' %}">
+
+
+
+
+
+
+
+{% include 'partials/header_back.html'%}
+
+<form action="{% url 'Admin:new_student' %}" method='POST'>
+{% csrf_token %}
+<div class="form_container">
+
+    <img class='new_student_form_image' src="{% static 'global/view-young-students-attending-school_23-2151031891.jpg' %}" alt="">
+    
+    <div class='form_inputs_container'>
+
+
+    <div class='text_new_student'>
+    <img class='new_student_image'src="{% static 'global/icons8-homem-estudante-32.png' %}" alt="">
+    <h1 class="login_text">New student data    
+        </h1>
+    </div>
+
+
+    <div class="names">
+     <div class="input_close">
+    <label for="name">Student Name</label>
+    <input name='name' id='name' type="text" class="name_input form_input input">
+</div>
+
+    <div class="input_close">
+    <label for="last_name">Student last name</label>
+    <input name='last_name' id='last_name'type="text" class="last_name_input form_input input">
+</div>
+</div>
+
+
+    <div class="input_close">
+    <label for="class">Student Class</label>
+    <select name="class" id="class" class="classes_options_input form_input input">
+        {% for class in classes %}
+        <option value="{{class.id}}">{{class.name}}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="input_close">
+    <label for="matricula">Registration number</label>
+    <input type="number" name="matricula" id="matricula" class="form_input matricula_input input">
+</div>
+
+    <div class="input_close">
+    <label for="responsable">Parent number</label>
+    <input name='responsable' id='responsable'  type="tel" class='form_input parent_number_input input'>
+</div>
+
+<div class="input_close">
+    <label for="inscription_date">Inscription date</label>
+    <input name='inscription_date' id= 'inscription_date' type='date' class='form_input data_input input'>
+</div>
+
+
+<div class='password_info'>
+    Password <div class='information_password'> 
+        <img src="{% static 'global/info-svgrepo-com.png' %}" alt="" class='info_image'> 
+        <div class='information_password_text'>The student password will be equal to the moderator id + the registration number. your moderator id is "{{moderator.id}}"
+        </div></div>
+</div>
+   
+
+
+
+
+
+<button type="submit" class='login_submit_button student_submit_button'>Save</button>
+</div>
+</div>
+
+</form>
+
+
+
+<script>
+
+</script>

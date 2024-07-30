@@ -1,0 +1,64 @@
+{% load static %}
+{% include 'partials/head.html'%}
+<link rel="stylesheet" href="{% static 'background/background.css' %}">
+
+{% include 'partials/header_back.html'%}
+
+<form action="{% url 'Admin:new_teacher' %}" method='POST'>
+    {% csrf_token %}
+    <div class="form_container">
+    
+        <img class='new_student_form_image' src="{% static 'global/pexels-tima-miroshnichenko-5428141.jpg' %}" alt="">
+        
+        <div class='form_inputs_container'>
+    
+    
+        <div class='text_new_student'>
+        <img class='new_student_image'src="{% static 'global/icons8-homem-estudante-32.png' %}" alt="">
+        <h1 class="login_text">New teacher data</h1>
+        </div>
+    
+    
+        <div class="names">
+         <div class="input_close">
+        <label for="name">Teacher Name</label>
+        <input name='name' id='name'type="text" class="name_input form_input input">
+    </div>
+    
+        <div class="input_close">
+        <label for="last_name">Teacher last name</label>
+        <input name='last_name' id='last_name'type="text" class="last_name_input form_input input">
+    </div>
+    </div>
+    
+    
+    <div class="input_close">
+        <label for="subject">Teacher Subject</label>
+        <input name='subject'id='subject'type="text" class="form_input input">
+    </div>
+     
+    <div class="input_close">
+        <label for="email">Teacher Email</label>
+        <input name='email'id='email'type="text" class="form_input input">
+    </div>
+     
+
+    <div class="input_close">
+        <label for="teacher_password">Teacher Password 
+            <div class='information_password'> 
+                <img src="{% static 'global/info-svgrepo-com.png' %}" alt="" class='info_image'> 
+                <div class='information_password_text'>The teacher password will be equal to the moderator id + the given password. your moderator id is "{{moderator.id}}"
+                    
+                </div></div></label>
+        <input name='password'id='password'type="text" class="form_input input">
+    </div> 
+    
+    
+    
+    <button type="submit" class='login_submit_button'>Save</button>
+    </div>
+    </div>
+    
+    </form>
+    
+    

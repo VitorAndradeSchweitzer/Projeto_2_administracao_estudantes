@@ -1,0 +1,54 @@
+{% load static %}
+{% include 'partials/head.html' %}
+<link rel="stylesheet" href="{% static 'background/background.css' %}">
+<link rel="stylesheet" href="{% static 'global/css/choose_bar.css' %}">
+
+{% include 'partials/header_back.html'%}
+     
+    <form action="{% url 'Admin:new_class' %}" method='POST'>
+        {% csrf_token %}
+<div class="form_container">
+        <img class='new_student_form_image' src="{% static 'global/pexels-didsss-2675050.jpg' %}" alt="">
+
+    <div class='form_inputs_container'>
+
+   
+        <div class='text_new_student'>
+        <img class='new_student_image'src="{% static 'global/icons8-homem-estudante-32.png' %}" alt="">
+        <h1 class="login_text">New class data</h1>
+        </div>
+
+
+    <div class="input_close">
+        <label for="class">Teachers Class</label>
+        <select multiple name="teachers" id="teachers" class="">
+            {% for teacher in teachers %}
+            <option value="{{teacher.id}}"> {{teacher.name}} {{teacher.last_name}} ( {{ teacher.subject}})</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="input_close">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" class=" input  form_input">
+    </div>
+
+
+<button type="submit" class='login_submit_button'>Save</button>
+
+
+</form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/js/multi-select-tag.js"></script>
+<script>
+    new MultiSelectTag('teachers', {
+        rounded: true,  
+        tagColor: {
+            textColor: '#e20e3c',
+            borderColor: '#e20e3c',
+            bgColor: '#ffbac9',
+        },
+    
+    }) 
+</script>

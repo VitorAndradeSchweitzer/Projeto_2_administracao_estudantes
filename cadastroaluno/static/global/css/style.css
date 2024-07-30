@@ -1,0 +1,579 @@
+:root{
+    --base_color: rgb(14, 228, 174);
+    --base_white_color: rgb(241, 241, 241);
+    --second_color: rgb(226, 14, 60);
+    --color-white: #fff;
+    --color-black: #000;
+
+    --color-dark-text: #444;
+    --color-info-light: #cce5ff;
+    --color-debug-light: #cce5ff;
+    --color-success-light: #d4edda;
+    --color-alert-light: #fff3cd;
+    --color-warning-light: #fff3cd;
+    --color-error-light: #f8d7da;
+
+    --color-info-dark: #4d86c4;
+    --color-debug-dark: #4d86c4;
+    --color-success-dark: #4a9c5d;
+    --color-alert-dark: #927f40;
+    --color-warning-dark: #927f40;
+    --color-error-dark: #da525d;
+
+    --color-gray-0: #f9f9f9;
+    --color-gray-1: #f9f9f9;
+    --color-gray-2: #ececec;
+    --color-gray-3: #aeaeae;
+    --color-gray-4: #959595;
+    --color-gray-5: #7d7d7d;
+    --color-gray-6: #646464;
+    --color-gray-7: #4b4b4b;
+    --color-gray-8: #323232;
+    --color-gray-9: #191919;
+
+    --font-primary: 'Inter', sans-serif;
+    --font-headings: 'Roboto Slab', serif;
+
+    --spacing-gutter-medium: 3rem;
+    --spacing-gutter-large: 4rem;
+
+}
+
+
+
+body{
+    background-image: url("../StockCake-FocusedClassroomMoment_1721245966.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 0;
+    margin: 0;
+}
+
+
+.content{
+    padding-bottom: 15px;
+    margin: 0;
+    display: flex;
+    width: 500px;
+    height: fit-content;
+    min-height: 375px;
+    max-width: 600px;
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(241, 241, 241);
+    border-radius: 10px;
+}
+
+.login_text{
+    margin: 10px 0px 0px 0px;
+    font-size: 34px;
+    color: rgb(27, 27, 27);
+    font-family: var(--font-primary);
+}
+
+.contrast{
+    color: var(--second_color);
+   
+}
+.input{
+    background-color: rgb(219, 219, 219);
+    display: flex;
+    width: 290px;
+    margin: 10px;
+    padding: 9px 15px;
+    margin-top: 10px;
+    border: 1px solid rgb(151, 151, 151);
+    border-radius: 4px;
+    
+}
+
+.error_message{
+    margin: 0px;
+    color: var(--color-error-dark);
+}
+.names{
+    display: flex;
+    flex-direction: row;
+}
+
+.first_name{
+    width: 120px;
+}
+.last_name{
+    width: 120px;
+}
+
+.username{
+    margin-top: 35px;
+}
+.school{
+    margin-bottom: 0px;
+}
+.link_create_cont{
+   margin: 0px;
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+}
+
+.p_login_text{
+    margin: 0px;
+}
+
+.login_submit_button{
+    background: linear-gradient(90deg, rgb(7, 228, 191), rgb(16, 194, 170));
+    color: aliceblue;
+    font-size: 18px;
+    font-family: var(--font-primary);
+    margin-top: 20px;
+    padding: 10px 85px;
+    border: 1px solid rgb(14, 228, 174);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.login_submit_button:hover{
+    scale: 1.1;
+}
+
+
+.home_header{
+    background-color: var(--base_white_color);
+    color: var(--color-dark-text);
+    font-size: 30px;
+    font-family: var(--font-headings);
+    padding: 20px 0px;
+    box-shadow: -10px 10px 15px rgba(0, 0, 0, 0.171);
+    
+}
+
+.username_home{
+    margin-left: 25px;
+    font-family: var(--font-primary);
+}
+.search_bar_block{
+    position: relative;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+.search_bar{
+    width: 70%;
+    max-width: 550px;
+    padding: 10px 5px;
+    margin-top: 45px;
+    border: 1px solid var(--color-gray-2);
+    border-radius: 14px;
+    font-size: 20px;
+
+}
+
+.search_bar:focus{
+    border: 2px solid var(--base_color);
+    outline: none;
+}
+
+.tags_bar{
+  margin-top: 45px;
+  padding-bottom: 25px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 180px);
+  justify-items: center; 
+  align-items: center; 
+  gap: 20px 0px;
+  border-bottom: 2px dashed var(--color-gray-3);
+}
+
+.tag{
+    margin-left: 20px;
+    font-size: 20px;
+    padding: 10px 20px;
+    background-color: var(--color-gray-2);
+    border-radius: 20px;
+    font-family: var(--font-primary);
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.tag:hover{
+    background-color: var(--color-gray-3);
+}
+
+.hidden {
+    display: none;
+}
+
+
+.add{
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+}
+
+
+.add_button{
+    font-size: 25px;
+    padding: 15px 35px;
+    background-color: var(--base_color);
+    border: none;
+    border-radius: 35px;
+    color: var(--color-gray-0);
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.add_button_link{
+    text-decoration: none;
+}
+
+.rotate{
+    transform: rotate(180deg);
+    background-color: var(--second_color);
+}
+
+.rerotate{
+    transform: rotate(-180deg);
+    background-color: var(--base_color);
+}
+.selected{
+    background-color: var(--second_color);
+    color: wheat;
+}
+.selected:hover{
+    background-color: var(--second_color);
+
+}
+
+
+.hidden_buttons {
+
+    flex-direction: column;
+    align-items: flex-end;
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+    gap: 25px;
+}
+
+.secondary_button {
+    display: none;
+
+    margin-bottom: 15px;
+    padding: 10px 45px;
+    height: fit-content;
+    background: linear-gradient(90deg, rgb(7, 228, 191), rgb(8, 196, 171));
+    border: none;
+    border-radius: 20px;
+    font-family: var(--font-primary);
+    font-size: 18px;
+    color: var(--color-gray-0);
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+   
+    transform: translateY(20px);
+    transition: scale 0.2 ease transform 0.3s ease, opacity 0.3s ease;
+
+    animation-name: slideIn;
+    animation-duration: 0.6s;
+    animation-timing-function: ease-in-out;
+
+}
+
+.secondary_button:hover{
+    scale: 1.1;
+}
+
+.movement{
+    transform:translateY(-5px)
+}
+
+
+.selected {
+    background-color: var(--second_color);
+    color: wheat;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateY(0%);
+        opacity: 1;
+  
+
+    }
+    to {
+        transform: translateY(100%);
+        opacity: 0;
+        display: none !important;
+   
+
+    }
+}
+
+
+
+.class_section{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px dashed var(--color-gray-3);
+}
+
+
+.class_name{
+    margin-top: 15px;
+    margin-left: 25px;
+    font-size: 27px;
+    color: var(--color-dark-text);
+    font-family: var(--font-primary);
+}
+.class_students{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+
+
+
+
+.card{
+    float: left;
+    margin: 0px 25px 30px 25px;
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    height: fit-content;
+    padding: 25px;
+
+
+    background-color: var(--color-gray-2);
+    border:1px solid var(--color-gray-3);
+    border-radius: 15px;
+    font-family: var(--font-primary);
+}
+
+.profile_image{
+    align-self: center;
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    border: 2px solid var(--base_color)
+}
+
+.name{
+    margin: 15px 0px 5px 0px;
+    font-size: 16px;
+    color: var(--color-dark-text);
+    align-self: center;
+    border-bottom: 1px  solid var(--color-gray-3) ;
+    padding-bottom: 5px;
+}
+
+.profile{
+    margin-top: 15px;
+    background-color: var(--base_color);
+    color: var(--base_white_color);
+    border: none;
+    font-size: medium;
+    padding: 10px 25px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.profile:hover{
+
+    scale: 1.05
+}
+
+
+.matricula{
+    font-size: 13px;
+    color: var(--color-gray-6);
+}
+
+.year{
+    font-size: 13px;
+    color: var(--color-gray-6);
+}
+
+
+.button_back_to_home{
+    padding: 10px 45px;
+    height: fit-content;
+    background-color: var(--base_color);
+    border: none;
+    border-radius: 20px;
+    font-family: var(--font-primary);
+    font-size: 18px;
+    color: var(--color-gray-0);
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+    margin-left: 30px
+}
+
+.button_back_to_home:hover{
+
+    scale: 1.1;
+    background-color: var(--second_color);
+}
+
+.form_container{
+    position: absolute;
+    top: 57%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: row;
+    max-height: 530px;
+    
+  
+
+    border: 1px solid var(--color-gray-4);
+    border-radius: 15px;
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.185);
+}
+
+.form_inputs_container{
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   justify-content: center;
+   padding: 5px 30px 10px 30px;
+   gap: 15px;
+}
+
+.new_student_form_image{
+    width: 400px;
+    height:auto;
+    border-radius: 15px;
+}
+.text_new_student{
+    width: 350px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0px 5px 0px
+}
+.new_student_image{
+    
+    margin-top: 10px;
+    width: 35px;
+    height: 35px;
+}
+
+.form_input{
+    margin: 0px;
+}
+.input_close{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.input_close_name{
+    display: flex;
+    flex-direction: row;
+}
+
+.names{
+    display: flex;
+    flex-direction: row;
+    gap: 10px
+}
+.name_input{
+    width: 120px;
+}
+.last_name_input{
+    width: 120px;
+}
+
+
+.name_multiple_input{
+    width: 320px;
+    padding: 9px 15px;
+    background: black !important
+}
+
+.student_submit_button{
+        margin-top: 0px;
+    }
+
+
+label {
+    display: flex; 
+    margin-bottom: 0px;
+    font-weight: bold; 
+    font-size: 16px; 
+    color: #333; 
+}
+
+.information_password{
+    float: right;
+    margin-left: 3px;
+    position: relative;
+}
+
+.information_password_text{
+    display: none;
+    float: right;
+    margin-left: 5px;
+    width: 150px;
+    border: 1px solid var(--color-gray-4);
+    padding: 10px;
+    border-radius: 10px;
+    border-bottom-left-radius: 0px;
+    position: absolute;
+    background-color: var(--color-gray-1);
+}
+.information_password:hover .information_password_text{
+    display: block;
+    bottom: 20px;
+    left: 15px;
+}
+
+.info_image{
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    bottom: -4px;
+}
+
+.password_info{
+    
+    display: flex;
+    justify-self: start;
+    color: var(--color-dark-text);
+}
+
+@media (max-width: 768px){
+    .content{
+        left: 50% ;
+    }
+    .new_student_form_image{
+        display: none;
+    }
+}
+
+
