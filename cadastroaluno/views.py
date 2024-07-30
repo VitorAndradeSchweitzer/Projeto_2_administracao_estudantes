@@ -5,9 +5,10 @@ import requests
 import json
 from django.contrib.auth import login, authenticate
 from .models import Teacher, Moderator, Student, Class
+from rolepermissions.roles import assign_role
 
 
-
+ 
 def Loginpage(request):
 
     if request.method == 'POST':
@@ -27,16 +28,18 @@ def Loginpage(request):
                 tokens = response.json()
                 access_token = tokens['access']
                 refresh_token = tokens['refresh']
-
-
-                response = redirect('home/')
-                response.set_cookie('jwt_token', access_token, httponly=True, secure=True)
+               
               
-                
                 username = request.POST.get('username')
                 user = User.objects.filter(username=username).first()
                 user = authenticate(username=username, password=password)
                 if user is not None:
+                    
+                    response = redirect('home/')
+                    response.set_cookie('jwt_token', access_token, httponly=True, secure=True)
+                    
+                    
+                    
                     login(request, user)
                     return response
                 else:
@@ -61,12 +64,11 @@ def create_accont(request):
             form.save() 
             username = request.POST.get('username')
             user = User.objects.filter(username=username).first()
-
+            assign_role(user, 'moderator')
             school = request.POST.get('school')
             moderator = Moderator.objects.create(user=user,school= school)
             moderator.save()
             login(request, user)
-
             return redirect('home/') 
         else:
             return render(request, 'pages/loginpage.html', context={
@@ -78,27 +80,31 @@ def create_accont(request):
 
 
 def home(request):
-    moderator = Moderator.objects.filter(user=request.user).first()
-    students = Student.objects.filter(moderator=moderator).order_by('turma')
-    classes = Class.objects.filter(moderator=moderator).order_by('name')
+    user = request.user
+    if user.groups.filter(name='moderator').exists():
+        return home_moderator(request)
     
-    students_by_class = {}
-    for student in students:
-        turma_name = student.turma.name 
-        if turma_name not in students_by_class:
-            students_by_class[turma_name] = []
-        students_by_class[turma_name].append(student)
-    
-    return render(request, 'pages/home.html', context={
-       
-        'user':request.user,
-        'students': students,
-        'classes': classes,
-        'students_by_class': students_by_class,
+def home_moderator(request):
+        moderator = Moderator.objects.filter(user=request.user).first()
+        students = Student.objects.filter(moderator=moderator).order_by('turma')
+        classes = Class.objects.filter(moderator=moderator).order_by('name')
         
-    })
-
-
+        students_by_class = {}
+        for student in students:
+            turma_name = student.turma.name 
+            if turma_name not in students_by_class:
+                students_by_class[turma_name] = []
+            students_by_class[turma_name].append(student)
+        
+        return render(request, 'pages/home.html', context={
+        
+            'user':request.user,
+            'moderator': moderator,
+            'students': students,
+            'classes': classes,
+            'students_by_class': students_by_class,
+            
+        })
 
 def new_class(request):
 
@@ -128,9 +134,11 @@ def new_class(request):
         response = requests.post(url, json=data, headers=headers)
           
         if response.status_code == 201:
-            return HttpResponse('classe craida')
-        return HttpResponse(f'{data}')
-    return HttpResponse(f'formulario nao foi {form.errors}')
+            return home(request)
+        
+    return render(request, 'pages/new_class.html', context={
+        'form': form
+    })
 
 
 
@@ -153,23 +161,30 @@ def new_student(request):
     
         moderator = Moderator.objects.filter(user = request.user).first()
         data = form.cleaned_data
-        
         data['moderator'] = moderator.id
         data['turma'] = request.POST.get('class')
-        data['password'] = f"{moderator.id} ,{data['matricula']}"
+        data['password'] = f"{moderator.id}{data['matricula']}"
         data['inscription_date'] = data['inscription_date'].strftime('%Y-%m-%d')
+        
+        
         token = request.COOKIES.get('jwt_token')
         headers = {
                 'Authorization': f'Bearer {token}',
                 'Content-Type': 'application/json'
             }
     
+   
+        new_student = User.objects.create(username=f" {data['moderator']}{data['name']}{data['last_name']}", password=data['password'], first_name=data['name'], last_name=data['last_name'])
+        new_student.save()
+        assign_role(new_student, 'student')
         response = requests.post(url, json=data, headers=headers)
         if response.status_code == 201:
-            return HttpResponse(f'{data}')
-        else:
-            return HttpResponse(f'{response.text}')
-    return HttpResponse(f'nao foi, {form.errors}')
+            return home(request)
+        
+        return HttpResponse(f'{response.text}')
+    return render(request, 'pages/new_student.html', context={
+       'form':form
+    })
 
 
 
@@ -192,10 +207,35 @@ def new_teacher(request):
                 'Authorization': f'Bearer {token}',
                 'Content-Type': 'application/json'
             }
+          
+          new_teacher = User.objects.create(username=f" {data['moderator']}{data['name']}{data['last_name']}", password=f"{data['moderator']}{data['password']}", first_name=f"{data['name']}", last_name=f"{data['last_name']}")
+          new_teacher.save()
+          assign_role(new_teacher, 'teacher')
           response = requests.post(url, json=data, headers=headers)
           if response.status_code == 201:
               return home(request)
           else:
                 return HttpResponse(f'Response: {response.status_code}, {response.text}')
       else:
-            return HttpResponse(f'Form is not valid: {form.errors}')
+            return render(request, 'pages/new_teacher.html', context={
+                'form': form
+            })
+
+
+def student_profile(request, student_id):
+   url = f'http://127.0.0.1:8000/api/students/{student_id}'
+   token = request.COOKIES.get('jwt_token')
+   headers = {
+                'Authorization': f'Bearer {token}',
+                'Content-Type': 'application/json'
+            }
+   response = requests.get(url, headers=headers)
+   if response.status_code == 200:
+        student_data = response.json()
+        classe = Class.objects.get(id=student_data['turma'])
+        return render(request, 'pages/student_profile.html', context={
+            'student': student_data,
+            'class': classe
+        })
+   else:
+       return HttpResponse('algo deu errado')

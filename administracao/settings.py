@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
+    'rolepermissions',
     'cadastroaluno',
 ]
 
@@ -145,6 +146,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTHENTICATION_BACKENDS = [
-    # 'cadastroaluno.backends.EmailBackend',  # Substitua 'myapp' pelo nome do seu aplicativo
-    'django.contrib.auth.backends.ModelBackend',  # Mantenha o backend padrão
+
+    'django.contrib.auth.backends.ModelBackend',
 ]
+
+ROLEPERMISSIONS_MODULE = "administracao.roles"

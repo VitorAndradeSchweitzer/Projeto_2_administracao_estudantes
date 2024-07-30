@@ -26,11 +26,15 @@
             <option value="{{teacher.id}}"> {{teacher.name}} {{teacher.last_name}} ( {{ teacher.subject}})</option>
             {% endfor %}
         </select>
+        <div class="error_message">{{form.teachers.errors}}</div>
+
     </div>
 
     <div class="input_close">
         <label for="name">Name</label>
         <input type="text" name="name" id="name" class=" input  form_input">
+        <div class="error_message">{{form.name.errors}}</div>
+
     </div>
 
 

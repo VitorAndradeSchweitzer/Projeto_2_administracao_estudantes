@@ -1,0 +1,44 @@
+{% load static %}
+{% include 'partials/head.html'%}
+<link rel="stylesheet" href="{% static 'background/background.css' %}">
+
+{% include 'partials/header_back.html' %}
+
+
+<div class="student_profile">
+    
+    <div class="student_container">
+    <img class='student_profile_image'src="{{student.profile.url}}" alt="">
+
+    <div class='student_information_space'>
+
+    <div class='student_info_name'>
+    <div class='student_info'>Name:</div>  
+    <div class="student_info_text"> {{student.name}} </div>
+  
+   
+    <div class='student_info'>Last name:</div>
+   <div class="student_info_text"> {{student.last_name}}</div>
+</div>
+
+
+
+    <div class='student_info'>Class:</div>
+    <div class="student_info_text"> {{class }} </div>
+    
+    <div class='student_info'>Parent Number:</div>
+    <div class="student_info_text"> {{student.responsable}}</div>
+
+    <div class='student_info'>Registration number: </div>
+    <div class="student_info_text"> {{student.matricula}}</div>
+    
+    <div class="student_buttons">
+    <button class='button_back_to_home' > Grades</button>
+    <button class='button_back_to_home' >Send advice</button>
+</div>
+
+</div>
+
+</div>
+
+</div>

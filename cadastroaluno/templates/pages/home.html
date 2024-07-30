@@ -6,8 +6,16 @@
 <body>
     {% include 'partials/header.html'%}
     <div class='search_bar_block'>
-        <input placeholder='Search for students' type="text" class='search_bar'>
+        <input placeholder='Search for students' list='students' class='search_bar'>
     </div>
+    
+    <datalist id='students' class='student_data_list'>
+        {% for student in students %}
+        <option value="{{student.name}}">{{student.name}} {{student.last_name}}</option>
+   {% endfor %}
+    </datalist>
+
+
 
     <div class='tags_bar'>
         <div class="tag selected " data-class='all'>all</div>
@@ -28,9 +36,11 @@
     <div class="name">{{student.name}} {{student.last_name}}</div>
             <div class="year">YEAR: {{student.turma}} </div>
             <div class="matricula">ID: {{student.matricula}}</div>
-
-            <button class="profile">Perfil</button>
-</div>
+ 
+            <a href="{% url 'Admin:student_profile' student.id %}">
+                <button class="profile">Perfil</button>
+            </a>
+            </div>
 
 {% endfor %}
 </div>
