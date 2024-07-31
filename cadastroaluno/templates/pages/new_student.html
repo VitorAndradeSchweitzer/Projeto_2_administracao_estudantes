@@ -75,19 +75,20 @@
 </div>
 
 
-<div class='password_info'>
-    Password <div class='information_password'> 
-        <img src="{% static 'global/info-svgrepo-com.png' %}" alt="" class='info_image'> 
-        <div class='information_password_text'>The student password will be equal to the moderator id + the registration number. your moderator id is "{{moderator.id}}"
-       </div> </div>
-</div>
+
    
 
+ <div class="save_container">
+ <button type="submit" class='login_submit_button student_submit_button'>Save</button>
+
+ <div class='information_password information_password_student'> 
+    <img src="{% static 'global/info-svgrepo-com.png' %}" alt="" class='info_image'> 
+    <div class='information_password_text'>The student login will be equal to the moderator id + Name + Last name. The student password will be the Registration number. your moderator id is "{{moderator.id}}"
+        
+    </div></div>    
+ </div>
 
 
-
-
-<button type="submit" class='login_submit_button student_submit_button'>Save</button>
 </div>
 </div>
 

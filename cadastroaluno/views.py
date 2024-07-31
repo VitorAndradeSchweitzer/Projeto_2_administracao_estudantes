@@ -34,13 +34,10 @@ def Loginpage(request):
                 user = User.objects.filter(username=username).first()
                 user = authenticate(username=username, password=password)
                 if user is not None:
-                    
+                    login(request, user)
                     response = redirect('home/')
                     response.set_cookie('jwt_token', access_token, httponly=True, secure=True)
-                    
-                    
-                    
-                    login(request, user)
+    
                     return response
                 else:
                     return HttpResponse('usuario não autentificado')
@@ -83,7 +80,11 @@ def home(request):
     user = request.user
     if user.groups.filter(name='moderator').exists():
         return home_moderator(request)
+    if user.groups.filter(name='teacher').exists():
+        return  home_teacher(request)
     
+
+
 def home_moderator(request):
         moderator = Moderator.objects.filter(user=request.user).first()
         students = Student.objects.filter(moderator=moderator).order_by('turma')
@@ -96,7 +97,7 @@ def home_moderator(request):
                 students_by_class[turma_name] = []
             students_by_class[turma_name].append(student)
         
-        return render(request, 'pages/home.html', context={
+        return render(request, 'pages/home/home.html', context={
         
             'user':request.user,
             'moderator': moderator,
@@ -105,6 +106,12 @@ def home_moderator(request):
             'students_by_class': students_by_class,
             
         })
+
+
+def home_teacher(request):
+    return render(request, 'pages/home/home_teacher.html')
+
+
 
 def new_class(request):
 
@@ -115,8 +122,6 @@ def new_class(request):
         'teachers': teachers
         })
     
-
-
     form = NewClassForm(request.POST)
     if form.is_valid():
         data = form.cleaned_data
@@ -124,7 +129,6 @@ def new_class(request):
         data['moderator'] = moderator.id
         data['teachers'] = [teacher.id for teacher in data['teachers']]
         url = 'http://127.0.0.1:8000/api/class/'
-        print(data)
         
         token = request.COOKIES.get('jwt_token')
         headers = {
@@ -163,9 +167,9 @@ def new_student(request):
         data = form.cleaned_data
         data['moderator'] = moderator.id
         data['turma'] = request.POST.get('class')
-        data['password'] = f"{moderator.id}{data['matricula']}"
+        data['password'] = f"{data['matricula']}"
         data['inscription_date'] = data['inscription_date'].strftime('%Y-%m-%d')
-        
+
         
         token = request.COOKIES.get('jwt_token')
         headers = {
@@ -174,9 +178,12 @@ def new_student(request):
             }
     
    
-        new_student = User.objects.create(username=f" {data['moderator']}{data['name']}{data['last_name']}", password=data['password'], first_name=data['name'], last_name=data['last_name'])
+        new_student = User.objects.create(username=f"{data['moderator']}{data['name']}{data['last_name']}",first_name=data['name'], last_name=data['last_name'])
+        new_student.set_password(data['password'])
         new_student.save()
         assign_role(new_student, 'student')
+        print(data['password'])
+        data['user'] = new_student.id
         response = requests.post(url, json=data, headers=headers)
         if response.status_code == 201:
             return home(request)
@@ -208,9 +215,12 @@ def new_teacher(request):
                 'Content-Type': 'application/json'
             }
           
-          new_teacher = User.objects.create(username=f" {data['moderator']}{data['name']}{data['last_name']}", password=f"{data['moderator']}{data['password']}", first_name=f"{data['name']}", last_name=f"{data['last_name']}")
+          
+          new_teacher = User.objects.create(username=f"{data['moderator']}{data['name']}{data['last_name']}", first_name=f"{data['name']}", last_name=f"{data['last_name']}", email=f'{data['email']}')
+          new_teacher.set_password(data['password'])
           new_teacher.save()
           assign_role(new_teacher, 'teacher')
+          data['user'] = new_teacher.id
           response = requests.post(url, json=data, headers=headers)
           if response.status_code == 201:
               return home(request)

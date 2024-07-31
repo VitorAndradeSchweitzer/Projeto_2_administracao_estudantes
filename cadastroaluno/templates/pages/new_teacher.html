@@ -45,18 +45,20 @@
 
     <div class="input_close">
         <label for="teacher_password">Teacher Password 
-            <div class='information_password'> 
-                <img src="{% static 'global/info-svgrepo-com.png' %}" alt="" class='info_image'> 
-                <div class='information_password_text'>The teacher password will be equal to the moderator id + the given password. your moderator id is "{{moderator.id}}"
-                    
-                </div></div></label>
+          </label>
         <input name='password'id='password'type="text" class="form_input input">
     </div> 
     
-    
-    
+      
+    <div class="save_container">
     <button type="submit" class='login_submit_button'>Save</button>
+    <div class='information_password'> 
+        <img src="{% static 'global/info-svgrepo-com.png' %}" alt="" class='info_image'> 
+        <div class='information_password_text'>The teacher login will be equal to the moderator id + Name + Last name. your moderator id is "{{moderator.id}}"
+            
+        </div></div>    
     </div>
+</div>
     </div>
     
     </form>

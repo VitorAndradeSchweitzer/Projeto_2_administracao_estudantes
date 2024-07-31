@@ -11,6 +11,7 @@ class Moderator(models.Model):
     
 
 class Teacher(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     moderator = models.ForeignKey( Moderator, on_delete=models.CASCADE, null=1)
     name = models.CharField(max_length=50)
     subject = models.CharField(max_length=50)
@@ -33,6 +34,7 @@ class Class(models.Model):
 
     
 class Student(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     moderator = models.ForeignKey( Moderator, on_delete=models.CASCADE, null=1)
     turma = models.ForeignKey('Class',  on_delete=models.CASCADE, default=False)
     name = models.CharField(max_length=50)

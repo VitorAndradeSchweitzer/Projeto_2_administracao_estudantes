@@ -531,9 +531,14 @@ label {
 }
 
 .information_password{
+    margin-top: 50px;
     float: right;
-    margin-left: 3px;
+    margin-left: 9px;
     position: relative;
+}
+
+.information_password_student{
+    margin-top: 30px;
 }
 
 .information_password_text{
