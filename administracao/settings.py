@@ -158,5 +158,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'vitor.a.schweitzer@gmail.com'
-EMAIL_HOST_PASSWORD = 'wnqq taua fbqp exwr'
+EMAIL_HOST_PASSWORD = ''
 DEFAULT_FROM_EMAIL = 'vitor.a.schweitzer@gmail.com'
