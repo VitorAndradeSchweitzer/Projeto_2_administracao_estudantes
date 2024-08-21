@@ -30,7 +30,7 @@ class Class(models.Model):
 
     def __str__(self):
         return self.name
-    
+
 
     
 class Student(models.Model):
@@ -46,3 +46,9 @@ class Student(models.Model):
     password = models.CharField(max_length=50)
     def __str__(self):
         return self.name
+
+class Moderator_Advice(models.Model):
+      moderator = models.ForeignKey( Moderator, on_delete=models.CASCADE, null=1)
+      content = models.CharField(max_length=500)
+      date = models.DateTimeField(auto_now_add=True)
+      

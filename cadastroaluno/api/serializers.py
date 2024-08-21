@@ -10,8 +10,6 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = '__all__'
  
 
-
-
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
@@ -42,3 +40,10 @@ class ModeratorSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Moderator
+        
+
+
+class Moderator_AdviceSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = models.Moderator_Advice

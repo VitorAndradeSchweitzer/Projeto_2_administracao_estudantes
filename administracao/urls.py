@@ -13,6 +13,7 @@ router.register(r"teacher", viewsets.TeacherViewSet, basename='teachers')
 router.register(r"class", viewsets.ClassViewSet, basename='class')
 router.register(r'users', viewsets.UserViewSet)
 router.register(r'moderator', viewsets.ModeratorViewSet)
+router.register(r'moderator_advice', viewsets.Moderator_AdviceViewSet)
  
 
 urlpatterns = [
@@ -21,5 +22,4 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/token/', TokenObtainPairView.as_view(), name='token'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
 ]

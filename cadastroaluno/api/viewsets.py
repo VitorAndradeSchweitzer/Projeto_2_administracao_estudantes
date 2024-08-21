@@ -21,3 +21,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class ModeratorViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ModeratorSerializer
     queryset = models.Moderator.objects.all()
+
+class Moderator_AdviceViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.Moderator_AdviceSerializer
+    queryset = models.Moderator_Advice.objects.all()

@@ -1,0 +1,30 @@
+{% load static %}
+{% include 'partials/head.html' %}
+<link rel="stylesheet" href="{% static 'background/background.css' %}">
+
+{% include 'partials/header_back.html'%}
+
+<div class='teachers'>
+
+{% for teacher in student.turma.teachers.all %}
+<div class="teacher_info_container">
+
+<div class='teacher_photo'></div>
+
+<div class="teacher_data">
+<div class="teacher_subject">{{teacher.subject}} </div>
+
+
+<div class="teacher_info">
+{{teacher.name}} 
+{{teacher.last_name}}
+</div>
+
+{{teacher.email}}
+
+</div>
+</div>
+
+{% endfor %}
+
+</div>
